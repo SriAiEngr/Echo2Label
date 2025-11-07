@@ -1,0 +1,7 @@
+defaults:
+  seconds: 6
+  input_dir: C:\SriAIEngr\Echo2Label\input
+  out_root: C:\SriAIEngr\Echo2Label\output
+  pattern: "{date}_{name}_{skill}_run{run}.{ext}"
+  model: base
+  use_silence_gate: true

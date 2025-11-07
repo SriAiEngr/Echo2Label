@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+.venv/
+env/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and runtime
+logs/
+*.log
+*.tmp
+
+# Media I/O (keep folders, ignore contents)
+input/*
+!input/.gitkeep
+output/*
+!output/.gitkeep
+
+# Optional models cache
+models/*
+!models/.gitkeep
+
+# Whisper/fuse caches
+.cache/
+
+# Local FFmpeg bundle (optional; reduces repo size and avoids >100MB file limit)
+Tools/ffmpeg/
