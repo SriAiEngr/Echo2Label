@@ -1,0 +1,18 @@
+repository:
+  # If you use the Probot Settings app, these topics will sync automatically.
+  topics:
+    - voice-to-text
+    - speech-to-text
+    - transcription
+    - speech-recognition
+    - whisper
+    - openai-whisper
+    - audio-processing
+    - video-processing
+    - ffmpeg
+    - auto-tagging
+    - metadata
+    - event-labeling
+    - python
+    - cli
+
