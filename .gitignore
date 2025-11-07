@@ -31,5 +31,5 @@ models/*
 # Whisper/fuse caches
 .cache/
 
-# Local FFmpeg bundle (optional; reduces repo size and avoids >100MB file limit)
-Tools/ffmpeg/
+# FFmpeg: include ffmpeg and ffprobe but ignore ffplay (often >100MB)
+Tools/ffmpeg/bin/ffplay.exe
