@@ -1,0 +1,55 @@
+# Auto-sync repository topics from .github/settings.yml
+name: Sync Topics
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/settings.yml'
+      - '.github/workflows/sync-topics.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync-topics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract topics from settings.yml
+        id: extract
+        run: |
+          file=".github/settings.yml"
+          if [ ! -f "$file" ]; then
+            echo "No settings file found; skipping." >&2
+            echo "topics=[]" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          # Naive YAML parse: collect list items under `repository: topics:`
+          awk 'BEGIN{inrepo=0; intopics=0}
+               /^repository:/ {inrepo=1; next}
+               inrepo && /^\S/ && $1!="repository:" {inrepo=0}
+               inrepo && /topics:/ {intopics=1; next}
+               intopics && /^\s*-/ {sub(/^\s*-\s*/, ""); print; next}
+               intopics && /^[^[:space:]-]/ {intopics=0}
+          ' "$file" | sed 's/\r$//' > topics.txt
+          TOPICS_JSON=$(jq -R -s 'split("\n") | map(select(length>0))' topics.txt)
+          echo "Extracted topics: $TOPICS_JSON"
+          echo "topics=$TOPICS_JSON" >> $GITHUB_OUTPUT
+
+      - name: Update repository topics
+        uses: actions/github-script@v7
+        env:
+          TOPICS: ${{ steps.extract.outputs.topics }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            const topics = JSON.parse(process.env.TOPICS || '[]');
+            const {owner, repo} = context.repo;
+            core.info(`Updating ${owner}/${repo} topics to: ${topics.join(', ')}`);
+            await github.rest.repos.replaceAllTopics({ owner, repo, names: topics });
+          
