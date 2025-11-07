@@ -634,7 +634,7 @@ def watch_folder(folder, poll=2.0, seen=None, **kwargs):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Auto-tag ski videos from voice note at head of clip.")
+    parser = argparse.ArgumentParser(description="Auto-tag videos from a short voice note at the head of the clip.")
     parser.add_argument("video", nargs="?", help="Path to video")
     parser.add_argument("--seconds", type=int, default=None, help="Seconds to sample from head")
     parser.add_argument("--roster", default="./data/roster.yaml", help="student roster file")

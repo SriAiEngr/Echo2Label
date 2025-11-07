@@ -75,12 +75,12 @@ students:
 
     sample_skills = """
 skills:
-  - parallel turn
-  - carving
-  - slalom
-  - jump
-  - hockey stop
-  - moguls
+  - warmup
+  - rehearsal
+  - demo
+  - keynote
+  - q&a
+  - meeting
 """.strip()
 
     changed = False
@@ -95,7 +95,7 @@ skills:
         print("It looks like this is your first run and your data files were empty or missing.")
         print(f"A sample roster was written to: {roster_path}")
         print(f"A sample skills list was written to: {skills_path}")
-        print("Edit these files to match your students and skills.")
+        print("Edit these files to match your names and tags.")
         try:
             resp = input("Press Enter to continue with the samples, or type 'n' to abort and edit now: ").strip().lower()
         except KeyboardInterrupt:
