@@ -1,6 +1,6 @@
-# EchoLabel - Voice Autotag for Events & Media
+# EchoLabel - Voice-to-Text Auto‑Tagger for Events & Media
 
-EchoLabel scans the first seconds of a clip, transcribes a short voice note with Whisper, and names the file with date, participant name, and a tag. Use it for sports sessions, classes, rehearsals, talks, meetings, or any event where a quick spoken label helps organize footage.
+EchoLabel performs voice to text (speech to text) on the first seconds of a video or audio clip using Whisper, then names the file with date, participant name, and a tag. Use it for sports sessions, classes, rehearsals, talks, meetings, or any event where a quick spoken label helps organize footage.
 
 ## Quickstart
 1) Create venv and install deps (Python 3.10+):
@@ -27,6 +27,14 @@ EchoLabel scans the first seconds of a clip, transcribes a short voice note with
    - If FFmpeg is not found, place it under `./ffmpeg/bin/ffmpeg(.exe)` or on Windows run: `winget install Gyan.FFmpeg`.
 
 ## Usage
+- Voice to text (single video):
+  ```bash
+  python echolabel.py ./input/clip001.mp4 --use-silence-gate --seconds 6 --print-only
+  ```
+- Voice to text (batch newest):
+  ```bash
+  python echolabel.py --input-dir ./input --newest 5 --use-silence-gate
+  ```
 - Single file:
   ```bash
   python echolabel.py ./input/clip001.mp4 --use-silence-gate
